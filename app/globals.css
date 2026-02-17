@@ -8,3 +8,13 @@ body {
   overflow: hidden;
   background: #000;
 }
+
+@keyframes scan {
+  0% { top: 0; }
+  50% { top: 100%; }
+  100% { top: 0; }
+}
+
+.animate-scan {
+  animation: scan 2s ease-in-out infinite;
+}
