@@ -3,7 +3,7 @@ import { useEffect, useRef, useCallback } from "react";
 import * as THREE from "three";
 
 interface ARViewportProps {
-  memoryId: string;
+  _memoryId?: string;
   mediaUrl: string;
   mediaType: "video" | "photo";
   onTrackingFound?: () => void;
@@ -11,7 +11,6 @@ interface ARViewportProps {
 }
 
 export default function ARViewport({
-  memoryId,
   mediaUrl,
   mediaType,
   onTrackingFound,

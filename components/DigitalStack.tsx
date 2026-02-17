@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import Image from "next/image";
 
 interface MemoryCard {
   id: string;
@@ -19,7 +20,6 @@ export default function DigitalStack({
   isTracking,
 }: DigitalStackProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [dragStart, setDragStart] = useState(0);
 
   if (!isTracking || memories.length === 0) return null;
 
@@ -57,7 +57,6 @@ export default function DigitalStack({
               exit={{ opacity: 0, y: -20 }}
               drag={offset === 0 ? "x" : false}
               dragElastic={0.2}
-              onDragStart={() => setDragStart(0)}
               onDragEnd={(e, info) => handleDragEnd(info)}
               className="absolute inset-0 rounded-lg overflow-hidden bg-white/10 backdrop-blur-sm border border-white/20 cursor-grab active:cursor-grabbing"
             >
@@ -70,10 +69,12 @@ export default function DigitalStack({
                   className="w-full h-full object-cover"
                 />
               ) : (
-                <img
+                <Image
                   src={memory.url}
-                  alt={memory.caption}
-                  className="w-full h-full object-cover"
+                  alt={memory.caption || "Memory photo"}
+                  fill
+                  className="object-cover"
+                  priority={offset === 0}
                 />
               )}
               {memory.caption && (
