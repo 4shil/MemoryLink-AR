@@ -1,117 +1,197 @@
-# MemoryLink AR
+# 📸 MemoryLink AR
 
-A minimalist WebAR platform for scanning physical Polaroids and unlocking digital memories.
+<div align="center">
 
-## How It Works
+![MemoryLink AR Banner](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNXE5NzJrMW1uNGVuM3N1ZHJlMW0wcHF5eHEwNDRiZm0yMzI3Z2s3eSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0HlTsBt3VQMd2v72/giphy.gif)
 
-1. **Scan QR Code** - Point your phone at the QR code on a physical Polaroid
-2. **Grant Camera Access** - Allow browser to access camera
-3. **View Memories** - AR overlay displays videos/photos anchored to the Polaroid
-4. **Swipe Through** - Drag left/right to navigate through the memory stack
+**Turn physical Polaroids into portals. Scan a photo. Unlock a memory.**
 
-## Tech Stack
+[![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://typescriptlang.org)
+[![Three.js](https://img.shields.io/badge/Three.js-000000?style=for-the-badge&logo=three.js&logoColor=white)](https://threejs.org)
+[![MindAR](https://img.shields.io/badge/MindAR.js-AR%20Engine-FF6B6B?style=for-the-badge)](https://hiukim.github.io/mind-ar-js-doc/)
+[![MIT License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 
-- **Frontend**: Next.js 14 + TypeScript + Tailwind CSS
-- **AR Engine**: MindAR.js for marker-based image tracking
-- **3D**: Three.js for rendering digital overlays
-- **QR Scanning**: html5-qrcode for QR code detection
-- **QR Generation**: qrcode for creating shareable links
-- **Animation**: Framer Motion for smooth interactions
+</div>
 
-## Project Structure
+---
+
+## The Idea
+
+Physical photos collect dust. Digital memories get buried in albums nobody opens.
+
+MemoryLink AR bridges the two worlds — you print a Polaroid, stick a QR code on the back, and anyone who scans it gets an AR experience overlaid right on the photo. Videos, photos, moments — all anchored to the real world through the camera lens.
+
+Think of it as a living photo album that exists halfway between paper and screen.
+
+---
+
+## ✨ How It Works
 
 ```
-├── app/
-│   ├── m/[id]/page.tsx          # Dynamic memory page route
-│   ├── layout.tsx                # Root layout
-│   ├── page.tsx                  # Home page
-│   └── globals.css               # Global styles
-├── components/
-│   ├── ARViewport.tsx            # AR rendering engine
-│   ├── CameraPermission.tsx      # Camera access request
-│   ├── DigitalStack.tsx          # Memory card stack UI
-│   ├── QRDisplay.tsx             # QR code display component
-│   ├── QRScanner.tsx             # QR code scanner
-│   └── ScanningOverlay.tsx       # AR scanning guide
-├── utils/
-│   ├── qr.ts                     # QR code utilities
-│   └── media.ts                  # Media optimization
-├── public/assets/                # Polaroid target images & media
-└── package.json
+1. 📸 Print a Polaroid  →  2. 🔗 Attach a QR code  →  3. 📱 Scan with phone  →  4. ✨ AR memories appear
 ```
 
-## Setup
+- Point your phone at the QR code
+- Grant camera access
+- Watch digital memories overlay on the physical Polaroid
+- Swipe through the memory stack
+
+No app install needed. Just a browser and a camera.
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Tech | Purpose |
+|-------|------|---------|
+| Framework | Next.js 14 | File-based routing, SSR |
+| Language | TypeScript | Type safety everywhere |
+| Styling | Tailwind CSS | Rapid utility-first styling |
+| AR Engine | MindAR.js | Marker-based image tracking |
+| 3D Renderer | Three.js | Digital memory overlays |
+| QR Scanning | html5-qrcode | In-browser QR detection |
+| QR Generation | qrcode | Shareable memory links |
+| Animations | Framer Motion | Smooth swipe transitions |
+
+---
+
+## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js 18+
-- npm or yarn
 
-### Installation
+- Node.js 18+
+- A webcam or phone camera
+
+### Install
 
 ```bash
+git clone https://github.com/4shil/MemoryLink-AR.git
+cd MemoryLink-AR
 npm install
 ```
 
-### Development
+### Run Locally
 
 ```bash
 npm run dev
+# Visit http://localhost:3000
 ```
 
-Visit `http://localhost:3000` in your browser.
-
-### Add Memory Assets
+### Add Your Own Memories
 
 1. Place your Polaroid reference image at `public/assets/target.jpg`
-2. Compile it to `.mind` format using [MindAR Web](https://github.com/hiukim/mind-ar-js)
+2. Compile it to `.mind` format using [MindAR Web Compiler](https://github.com/hiukim/mind-ar-js)
 3. Save as `public/assets/target.mind`
-4. Place videos/photos in `public/assets/videos/` and `public/assets/photos/`
+4. Drop your videos/photos into `public/assets/videos/` and `public/assets/photos/`
 
-### Create Memory Links
+### Create a Memory Link
 
-Visit `/m/{memory-id}` to access a memory experience. Example:
-- `/m/seniors_farewell` - Senior farewell memories
-- `/m/birthday_2025` - Birthday memories
+Memory experiences live at `/m/{memory-id}`. Examples:
+
+```
+/m/seniors_farewell
+/m/birthday_2025
+/m/road_trip_goa
+```
 
 ### Generate QR Codes
 
-Use the `generateQRCode()` utility from `utils/qr.ts` to create scannable codes for each memory link.
+```typescript
+import { generateQRCode } from './utils/qr';
 
-## Building for Production
+const qr = await generateQRCode('https://yoursite.com/m/seniors_farewell');
+```
+
+Print it, stick it on a Polaroid, and you're done.
+
+---
+
+## 📁 Project Structure
+
+```
+MemoryLink-AR/
+├── app/
+│   ├── page.tsx              # Landing page
+│   ├── layout.tsx            # Root layout & metadata
+│   ├── globals.css           # Global styles
+│   └── m/[id]/
+│       └── page.tsx          # Dynamic memory experience page
+├── components/
+│   ├── ARViewport.tsx        # Core AR rendering with Three.js + MindAR
+│   ├── CameraPermission.tsx  # Permission request UI
+│   ├── DigitalStack.tsx      # Swipeable memory card stack
+│   ├── QRDisplay.tsx         # QR code display
+│   ├── QRScanner.tsx         # In-browser QR scanner
+│   └── ScanningOverlay.tsx   # AR scanning guide overlay
+├── utils/
+│   ├── qr.ts                 # QR generation utilities
+│   └── media.ts              # Media loading & optimization
+├── public/
+│   └── assets/
+│       ├── photos/           # Memory photos (add yours here)
+│       └── videos/           # Memory videos (add yours here)
+├── DEPLOYMENT.md             # Hosting & deployment guide
+└── CONTRIBUTING.md           # How to contribute
+```
+
+---
+
+## 📦 Build & Deploy
 
 ```bash
+# Production build
 npm run build
 npm start
 ```
 
-## Browser Requirements
+### Browser Support
 
-- Modern browsers with WebGL support
-- Camera access enabled
-- JavaScript enabled
+| Browser | Support |
+|---------|---------|
+| Chrome 90+ | ✅ |
+| Safari 14+ | ✅ |
+| Firefox 88+ | ✅ |
+| iOS Safari | ✅ |
+| Chrome Android | ✅ |
 
-Tested on:
-- Chrome 90+
-- Safari 14+
-- Firefox 88+
-- Mobile browsers (iOS Safari, Chrome Android)
+Requires: WebGL, Camera access, JavaScript enabled.
 
-## Performance Notes
+---
 
-- Mobile-optimized with lazy loading
-- Video bitrate adapts to connection speed
-- AR tracking runs at 30+ FPS on mobile devices
-- Minimal bundle size (~400KB gzipped)
+## ⚡ Performance
 
-## Future Enhancements
+- Mobile-first and optimized
+- Lazy loaded assets
+- Adaptive video bitrate based on connection
+- AR tracking at 30+ FPS on mobile
+- ~400KB gzipped bundle
 
-- [ ] Cloud storage for media assets (Cloudinary integration)
-- [ ] Admin dashboard for creating/managing memories
-- [ ] Multiple target markers per memory
+---
+
+## 🗺️ Roadmap
+
+- [ ] Cloud media storage (Cloudinary integration)
+- [ ] Admin dashboard to create/manage memories without code
+- [ ] Multiple markers per memory set
 - [ ] 3D model overlays
-- [ ] Sound effects and background music
-- [ ] Analytics tracking
+- [ ] Background audio & sound effects
+- [ ] Analytics (how many times a memory was scanned)
 
-## License
+---
 
-MIT
+## 🤝 Contributing
+
+Check out [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines. PRs are welcome — especially around performance, AR accuracy, and new memory types.
+
+---
+
+## 📜 License
+
+MIT — build your own memory platform on top of this.
+
+---
+
+<div align="center">
+  Made with 🎞️ and a love for physical things in a digital world by <a href="https://github.com/4shil">4shil</a>
+</div>
